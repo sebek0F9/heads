@@ -86,10 +86,10 @@ jobs:
             #If precedent cache not found. Restore cache for musl-cross-make module digest (rarely modified).
             #Otherwise, we build cleanly.
             - heads-musl-cross-{{ checksum "./tmpDir/musl-cross.sha256sums" }}{{ .Environment.CACHE_VERSION }}
-      - run:
-          name: Download and neuter xx20 ME (keep generated GBE and extracted IFD in tree)
-          command: |
-            ./blobs/xx20/download_parse_me.sh
+#      - run:
+#          name: Download and neuter xx20 ME (keep generated GBE and extracted IFD in tree)
+#          command: |
+#            ./blobs/xx20/download_parse_me.sh
 
       - run:
           name: Download and neuter xx30 ME (keep generated GBE and extracted IFD in tree)
@@ -97,15 +97,15 @@ jobs:
           command: |
             ./blobs/xx30/download_clean_me.sh -m $(readlink -f ./blobs/xx30/me_cleaner.py)
 
-      - run:
-          name: Download and extract t530 vbios roms for dgpu boards
-          command: |
-            ./blobs/xx30/vbios_t530.sh
+#      - run:
+#          name: Download and extract t530 vbios roms for dgpu boards
+#          command: |
+#            ./blobs/xx30/vbios_t530.sh
 
-      - run:
-          name: Download and extract w530 vbios roms for dgpu boards
-          command: |
-            ./blobs/xx30/vbios_w530.sh
+ #     - run:
+ #         name: Download and extract w530 vbios roms for dgpu boards
+ #         command: |
+ #           ./blobs/xx30/vbios_w530.sh
 
       - persist_to_workspace:
           root: ~/
@@ -182,13 +182,13 @@ jobs:
           paths:
             - crossgcc
             - build/x86/musl-cross-38e52db8358c043ae82b346a2e6e66bc86a53bc1
-            - build/ppc64/musl-cross-38e52db8358c043ae82b346a2e6e66bc86a53bc1
+#            - build/ppc64/musl-cross-38e52db8358c043ae82b346a2e6e66bc86a53bc1
             - packages
-            - build/x86/coreboot-4.11
+#            - build/x86/coreboot-4.11
             - build/x86/coreboot-4.13
             - build/x86/coreboot-4.14
             - build/x86/coreboot-4.15
-            - build/ppc64/coreboot-git
+#            - build/ppc64/coreboot-git
       - save_cache:
           #Generate cache for the exact same modules definitions if hash is not previously existing
           key: heads-modules-and-patches-{{ checksum "./tmpDir/all_modules_and_patches.sha256sums" }}{{ .Environment.CACHE_VERSION }}
@@ -254,47 +254,47 @@ workflows:
 #
 #
 
-      - build:
-          name: x220-hotp-maximized
-          target: x220-hotp-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: x220-hotp-maximized
+#          target: x220-hotp-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: x220-maximized
-          target: x220-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: x220-maximized
+#          target: x220-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: t420-hotp-maximized
-          target: t420-hotp-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: t420-hotp-maximized
+#          target: t420-hotp-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: t520-hotp-maximized
-          target: t520-hotp-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#         name: t520-hotp-maximized
+#          target: t520-hotp-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: t420-maximized
-          target: t420-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: t420-maximized
+#          target: t420-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: t520-maximized
-          target: t520-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: t520-maximized
+#          target: t520-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
       - build:
           name: x230-flash
@@ -358,138 +358,138 @@ workflows:
           subcommand: ""
           requires:
             - x230-hotp-maximized
-      - build:
-          name: t530-hotp-maximized
-          target: t530-hotp-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: t530-hotp-maximized
+#          target: t530-hotp-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: t530-dgpu-hotp-maximized
-          target: t530-dgpu-hotp-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: t530-dgpu-hotp-maximized
+#          target: t530-dgpu-hotp-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: w530-hotp-maximized
-          target: w530-hotp-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: w530-hotp-maximized
+#          target: w530-hotp-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: w530-dgpu-K1000m-hotp-maximized
-          target: w530-dgpu-K1000m-hotp-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized  
+#      - build:
+#          name: w530-dgpu-K1000m-hotp-maximized
+#          target: w530-dgpu-K1000m-hotp-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized  
 
-      - build:
-          name: w530-dgpu-K2000m-hotp-maximized
-          target: w530-dgpu-K2000m-hotp-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized  
+#      - build:
+#          name: w530-dgpu-K2000m-hotp-maximized
+#          target: w530-dgpu-K2000m-hotp-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized  
             
-      - build:
-          name: t430-maximized
-          target: t430-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: t430-maximized
+#          target: t430-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: t530-maximized
-          target: t530-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: t530-maximized
+#          target: t530-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: t530-dgpu-maximized
-          target: t530-dgpu-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: t530-dgpu-maximized
+#         target: t530-dgpu-maximized
+#         subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: w530-maximized
-          target: w530-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: w530-maximized
+#          target: w530-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: w530-dgpu-K1000m-maximized
-          target: w530-dgpu-K1000m-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: w530-dgpu-K1000m-maximized
+#          target: w530-dgpu-K1000m-maximized
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: w530-dgpu-K2000m-maximized
-          target: w530-dgpu-K2000m-maximized
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: w530-dgpu-K2000m-maximized
+#          target: w530-dgpu-K2000m-maximized
+#         subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: qemu-coreboot
-          target: qemu-coreboot
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: qemu-coreboot
+#          target: qemu-coreboot
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: qemu-coreboot-fbwhiptail
-          target: qemu-coreboot-fbwhiptail
-          subcommand: ""
-          requires:
-            - x230-hotp-maximized
+#      - build:
+#          name: qemu-coreboot-fbwhiptail
+#          target: qemu-coreboot-fbwhiptail
+#          subcommand: ""
+#          requires:
+#            - x230-hotp-maximized
 
-      - build:
-          name: librem_13v2
-          target: librem_13v2
-          subcommand: ""
-          requires:
-            - librem_14
+#      - build:
+#          name: librem_13v2
+#         target: librem_13v2
+#          subcommand: ""
+#          requires:
+#            - librem_14
 
-      - build:
-          name: librem_15v3
-          target: librem_15v3
-          subcommand: ""
-          requires:
-            - librem_14
+#      - build:
+#          name: librem_15v3
+#          target: librem_15v3
+#          subcommand: ""
+#          requires:
+#            - librem_14
 
-      - build:
-          name: librem_13v4
-          target: librem_13v4
-          subcommand: ""
-          requires:
-            - librem_14
+#      - build:
+#          name: librem_13v4
+#          target: librem_13v4
+#          subcommand: ""
+#          requires:
+#            - librem_14
 
-      - build:
-          name: librem_15v4
-          target: librem_15v4
-          subcommand: ""
-          requires:
-            - librem_14
+#      - build:
+#          name: librem_15v4
+#          target: librem_15v4
+#          subcommand: ""
+#          requires:
+#            - librem_14
 
-      - build:
-          name: librem_mini
-          target: librem_mini
-          subcommand: ""
-          requires:
-            - librem_14
+#      - build:
+#          name: librem_mini
+#          target: librem_mini
+#          subcommand: ""
+#          requires:
+#            - librem_14
 
-      - build:
-          name: librem_mini_v2
-          target: librem_mini_v2
-          subcommand: ""
-          requires:
-            - librem_14
+#      - build:
+#          name: librem_mini_v2
+#         target: librem_mini_v2
+#         subcommand: ""
+#          requires:
+#            - librem_14
 
 #      - build:
 #          name: kgpe-d16_workstation-usb_keyboard
@@ -519,13 +519,13 @@ workflows:
 #          requires:
 #            - librem_14
 
-      - build:
-          name: talos-2_workstation
-          arch: ppc64
-          target: talos-2_workstation
-          subcommand: ""
-          requires:
-            - talos-2_server
+#      - build:
+#          name: talos-2_workstation
+#          arch: ppc64
+#          target: talos-2_workstation
+#          subcommand: ""
+#          requires:
+#            - talos-2_server
 
 ########################
 ########################
